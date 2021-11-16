@@ -2,6 +2,10 @@ import fileinput
 
 
 def format_file_lines(curry_preferences):
+    """
+    :param curry_preferences: file_object
+    :return: list_of_lines: [["1V", "2M"] ["3M", "4V"]]
+    """
     list_of_lines = []
     for line in curry_preferences:
         if not curry_preferences.isfirstline():
@@ -22,6 +26,7 @@ def sort_curry_choices(curry_preferences):
                 else:
                     curry_choices.append(choice)
 
+    # Formats list to string format ("VVVM")
     ans = ""
     for choice in curry_choices:
         ans = ans + choice[1]

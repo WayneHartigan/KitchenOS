@@ -4,33 +4,34 @@ import fileinput
 def format_file_lines(curry_preferences):
     """
     :param curry_preferences: file_object
-    :return: list_of_lines: [["1V", "2M"] ["3M", "4V"]]
+    :return: list_of_choices: {1: 'MM', 2: 'VV'}
     """
-    list_of_lines = []
+    list_of_choices = {}
     for line in curry_preferences:
+        line = line.strip().replace(" ", "")
         if not curry_preferences.isfirstline():
-            line = line.strip().replace(" ", "")
-            list_of_lines.append([line[index: index + 2] for index in range(0, len(line), 2)])
-    return list_of_lines
+            for curry_choice in [line[index: index + 2] for index in range(0, len(line), 2)]:
+                try:
+                    list_of_choices[curry_choice[0]] = list_of_choices[curry_choice[0]] + curry_choice[1]
+                except KeyError:
+                    list_of_choices[curry_choice[0]] = curry_choice[1]
+    return list_of_choices
 
 
 def sort_curry_choices(curry_preferences):
-    curry_choices = []
+    curry_choices = {}
     list_of_pref = format_file_lines(curry_preferences)
-    for pref in list_of_pref:
-        for choice in pref:
-            if choice not in curry_choices:
-                if "M" in choice:
-                    if len(pref) == 1:
-                        curry_choices.append(choice)
-                else:
-                    curry_choices.append(choice)
-
-    # Formats list to string format ("VVVM")
+    for key, pref in list_of_pref.items():
+        if "M" not in pref:
+            curry_choices[key] = "V"
+        if "V" not in pref:
+            curry_choices[key] = "M"
+        else:
+            pass
+            # Logic for finding most efficient
     ans = ""
-    for choice in curry_choices:
-        ans = ans + choice[1]
-    print(ans)
+    for key, pref in sorted(curry_choices.items()):
+        ans = ans + pref
     return ans
 
 

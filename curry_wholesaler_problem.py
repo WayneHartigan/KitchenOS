@@ -11,14 +11,13 @@ def format_file_lines(file):
     for line in file:
         line = line.strip().replace(" ", "")
         choices = re.findall(r'(\d+[VM])', line.strip().replace(" ", ""))
-        if not file.isfirstline():
-            for curry_choice in choices:
-                index = int(curry_choice[:-1])
-                try:
-                    list_of_choices[index] = list_of_choices[index] + curry_choice[-1]
-                except KeyError:
-                    list_of_choices[index] = curry_choice[-1]
-    return list_of_choices
+        for curry_choice in choices:
+            index = int(curry_choice[:-1])
+            try:
+                list_of_choices[index] = list_of_choices[index] + curry_choice[-1]
+            except KeyError:
+                list_of_choices[index] = curry_choice[-1]
+    return sorted(list_of_choices.items())
 
 
 def check_for_no_solution(answer, max_length):
@@ -28,20 +27,16 @@ def check_for_no_solution(answer, max_length):
 
 
 def sort_curry_choices(curry_preferences):
-    curry_choices = {}
+    ans = ""
     max_length = int(curry_preferences.readline().strip())
     list_of_pref = format_file_lines(curry_preferences)
-    for key, pref in list_of_pref.items():
+    for _, pref in list_of_pref:
         if "M" not in pref or "V" not in pref:
-            curry_choices[key] = pref[0]
+            ans = ans + pref[0]
         else:
             if len(pref) == 2 and max_length == 1:
                 return "No solution exists"
-            curry_choices[key] = "V"
-
-    ans = ""
-    for key, pref in sorted(curry_choices.items()):
-        ans = ans + pref
+            ans = ans + "V"
     return check_for_no_solution(ans, max_length)
 
 

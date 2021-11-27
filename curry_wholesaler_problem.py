@@ -10,7 +10,7 @@ def format_file_lines(file):
     list_of_choices = {}
     for line in file:
         line = line.strip().replace(" ", "")
-        choices = re.findall(r'(\d+[VM])', line.strip().replace(" ", ""))
+        choices = re.findall(r"(\d+[VM])", line.strip().replace(" ", ""))
         for curry_choice in choices:
             index = int(curry_choice[:-1])
             try:

@@ -26,4 +26,4 @@ class TestCurryWholesaler:
     def test_5(self):
         input_file = fileinput.input("test_files/test_5.txt")
         resp = sort_curry_choices(input_file)
-        assert resp == "VM"
+        assert resp == "No solution exists"

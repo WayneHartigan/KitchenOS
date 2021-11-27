@@ -7,10 +7,10 @@ class TestCurryWholesalerProblem:
     @parameterized.expand(
         [
             ("test_files/test_1.txt", "MVVVV"),
-            ("test_files/test_2.txt", "MVVVV"),
-            ("test_files/test_3.txt", "MVVVV"),
-            ("test_files/test_4.txt", "MVVVV"),
-            ("test_files/test_5.txt", "MVVVV"),
+            ("test_files/test_2.txt", "No solution exists"),
+            ("test_files/test_3.txt", "VMVMV"),
+            ("test_files/test_4.txt", "VM"),
+            ("test_files/test_5.txt", "No solution exists"),
         ]
     )
     def test_curry_wholesaler_problem(self, test_file, expected):
